@@ -1,4 +1,6 @@
-# mahdidarabi/inotify-tools:bookworm-20250113-slim
+# mahdidarabi/inotify-tools:1.0.0
+
+# Build base image
 ARG BUILD_IMG=debian:bookworm-20250113-slim
 
 # Use a base image with inotify-tools
@@ -6,3 +8,5 @@ FROM ${BUILD_IMG}
 
 # Install inotify-tools
 RUN apt-get update && apt-get install -y inotify-tools && rm -rf /var/lib/apt/lists/*
+
+CMD [ "inotifywait", "-h" ]

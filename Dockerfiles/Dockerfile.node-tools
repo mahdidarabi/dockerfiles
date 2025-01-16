@@ -1,0 +1,20 @@
+# mahdidarabi/node-tools:0.0.1
+
+# Args
+ARG BUILD_IMG=node:20.16.0-bookworm
+
+FROM ${BUILD_IMG}
+
+# Install OpenSSH server
+RUN apt-get update && \ 
+  apt-get install -y openssh-server git vim ca-certificates curl && \
+  mkdir /var/run/sshd
+
+# Allow root login (for demonstration purposes only; not recommended for production)
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# Expose SSH port
+EXPOSE 22
+
+# Start SSH service
+CMD ["/usr/sbin/sshd", "-D"]
